@@ -7,22 +7,29 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
+import clsx from "clsx";
+import { useTheme } from "next-themes"
+import "atropos/css";
+import Atropos from "atropos/react";
+import { useRouter } from "next/navigation"
 
 
 
 export default function Component() {
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("") 
+  const [password, setPassword] = useState("")
+  const { theme } = useTheme();
+  const router = useRouter()
 
   return (
-    <div className="dark min-h-screen bg-background">
-      <div className="container grid min-h-screen grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+    <div className="dark min-h-screen dark:bg-background">
+      <div className="container grid min-h-screen min-w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
         <div className="flex items-center justify-center py-12">
           <div className="mx-auto w-[350px] space-y-6">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight">Welcome back!</h1>
-              <p className="text-sm text-muted-foreground">
-                Enter your username and password to log in to your admin panel
+              <h1 className="text-3xl font-bold tracking-tight">Bienvenido de nuevo!</h1>
+              <p className="text-base text-muted-foreground ">
+                Ingresa tu usuario y contraseña para acceder al panel de administración
               </p>
             </div>
             <Button variant="outline" className="w-full">
@@ -55,7 +62,7 @@ export default function Component() {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+                <span className="dark:bg-background px-2 text-muted-foreground">O continúa con</span>
               </div>
             </div>
             <div className="space-y-4">
@@ -87,8 +94,8 @@ export default function Component() {
                   Remember me
                 </label>
               </div>
-              <Button className="w-full" type="submit">
-                Log In
+              <Button className="w-full" type="submit" onClick={() => router.push("/dashboard")}>
+                Entrar
               </Button>
             </div>
             <div className="flex items-center justify-between">
@@ -101,14 +108,35 @@ export default function Component() {
             </div>
           </div>
         </div>
-        <div className="hidden bg-muted md:block">
+        <div  className={clsx(
+        "hidden md:block",
+        {
+          "dark:bg-muted": theme === "dark",
+          "bg-red-600": theme !== "dark",
+        }
+      
+        )}>
+
           <div className="flex h-full flex-col items-center justify-center space-y-4 p-8">
-           
-            <h2 className="text-2xl font-bold text-center">
-              Start your experience with Wheel Widget and boost your sales
+
+            <h2 className="text-2xl font-bold text-center ">
+              <p className={clsx(
+                "text-2xl mb-7",
+                {
+                  "dark:text-red-600": theme === "dark",
+                  "text-white": theme !== "dark",
+                }
+              )}>Administra concompromiso con Rave y de la mano de Dios, tu mejor experiencia contable</p>
             </h2>
-           
-            <div className="relative mt-4 aspect-square w-full max-w-md">
+
+            <div className="relative mt-4 aspect-square  max-w-md">
+              <Atropos
+              rotateXMax={15}
+              rotateYMax={15}
+              shadowScale={1.05}
+              activeOffset={30}
+              highlight={true}
+              >
               <Image
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuGi62gMLTv1-VICPYMpqIuTxvUdLFjvp8Sw&s"
                 alt="Wheel Widget Preview"
@@ -116,8 +144,10 @@ export default function Component() {
                 height={400}
                 className="rounded-lg object-fit"
               />
+
+              </Atropos>
             </div>
-            <p className="text-sm text-muted-foreground">Art by Midjourney</p>
+            <p className="text-base text-muted-foreground text-white">Tu mejor experiencia contable</p>
           </div>
         </div>
       </div>

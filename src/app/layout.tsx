@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Image from "next/image"
+import logo from "../../public/logo-rave.png"
+import { ThemeProvider } from "@/components/ui/theme-provider"
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,11 +16,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="bg-slate-600">
-      <body>
-        <div className="w-full py-4 text-slate-50 bg-slate-900"> rave </div>
-        {children}
-      </body>
-    </html>
+    <html lang="es" suppressHydrationWarning>
+  <body className="">
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <div className="w-full py-4 bg-slate-600 text-slate-50 flex justify-between items-center">
+        <Image
+          src={logo}
+          alt="Logo"
+          width={50}
+          height={50}
+          className="ml-20"
+          />
+          <p
+  className="font-bold text-2xl text-center"
+  style={{ textShadow: '5px 1px 2px rgba(255, 0, 0, 0.5)' }}
+>
+  ACABADOS Y ESTILOS EN MADERA
+</p>
+        <div className="mr-20">
+
+
+        <ModeToggle  />
+        </div>
+      </div>
+      {children}
+    </ThemeProvider>
+  </body>
+</html>
+
   );
 }
